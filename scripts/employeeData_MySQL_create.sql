@@ -35,7 +35,19 @@ CREATE TABLE payroll (
   retire_401k DECIMAL(7,2),
   health_care DECIMAL(7,2),
   empid INT,
+  PRIMARY KEY (empid),
   foreign key (empid) references employees(empid)
+);
+
+/***********************************************************************/ 
+
+
+/***********************************************************************/ 
+
+CREATE TABLE job_titles (
+  job_title_id INT,
+  job_title VARCHAR(125) NOT NULL,
+  PRIMARY KEY(job_title_id)
 );
 
 /***********************************************************************/ 
@@ -43,27 +55,9 @@ CREATE TABLE payroll (
 CREATE TABLE employee_job_titles (
   empid INT NOT NULL,
   job_title_id INT NOT null,
-  foreign key (empid) references employees(empid)
+  foreign key (empid) references employees(empid),
+  foreign key (job_title_id) references job_titles(job_title_id)
 );
-
-/***********************************************************************/ 
-
-CREATE TABLE job_titles (
-  job_title_id INT,
-  job_title VARCHAR(125) NOT NULL
-);
-
-/***********************************************************************/ 
-
-CREATE TABLE employee_division (
-  empid int NOT NULL,
-  div_ID int NOT NULL,
-  PRIMARY KEY (empid),
-  foreign key (empid) references employees(empid)
-);
-
-/***********************************************************************/
-
 
 CREATE TABLE division (
   ID int NOT NULL,
@@ -76,6 +70,18 @@ CREATE TABLE division (
   postalCode varchar(15) NOT null,
   primary key(ID)
 );
+
+CREATE TABLE employee_division (
+  empid int NOT NULL,
+  div_ID int NOT NULL,
+  PRIMARY KEY (empid),
+  foreign key (empid) references employees(empid),
+  foreign key (div_ID) references division(ID)
+);
+
+/***********************************************************************/
+
+
 
 /***********************************************************************/ 
 
