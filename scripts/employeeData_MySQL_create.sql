@@ -85,7 +85,7 @@ CREATE TABLE employee_division (
 
 /***********************************************************************/ 
 
-create table ADDRESS(
+create table address(
 	street varchar(50) not null,
 	city_id varchar(20) DEFAULT NULL,
 	state_id varchar(50) default null,
