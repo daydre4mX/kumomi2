@@ -41,9 +41,6 @@ CREATE TABLE payroll (
 
 /***********************************************************************/ 
 
-
-/***********************************************************************/ 
-
 CREATE TABLE job_titles (
   job_title_id INT,
   job_title VARCHAR(125) NOT NULL,
@@ -59,6 +56,8 @@ CREATE TABLE employee_job_titles (
   foreign key (job_title_id) references job_titles(job_title_id)
 );
 
+/***********************************************************************/ 
+
 CREATE TABLE division (
   ID int NOT NULL,
   Name varchar(100) DEFAULT NULL,
@@ -71,6 +70,8 @@ CREATE TABLE division (
   primary key(ID)
 );
 
+/***********************************************************************/ 
+
 CREATE TABLE employee_division (
   empid int NOT NULL,
   div_ID int NOT NULL,
@@ -78,10 +79,6 @@ CREATE TABLE employee_division (
   foreign key (empid) references employees(empid),
   foreign key (div_ID) references division(ID)
 );
-
-/***********************************************************************/
-
-
 
 /***********************************************************************/ 
 
@@ -91,10 +88,19 @@ create table address(
 	state_id varchar(50) default null,
 	postalCode varchar(15) not null,
 	empid int not null,
+	primary key (empid),
+	foreign key (empid) references employees(empid)
+	);
+
+/***********************************************************************/ 
+create table demographics(
 	gender char(1) default null,
 	race varchar(50) default null,
 	DOB date default NULL,
 	mobile varchar(10) default null,
+	empid int not null,
 	primary key (empid),
 	foreign key (empid) references employees(empid)
-	);
+);
+
+/***********************************************************************/ 
