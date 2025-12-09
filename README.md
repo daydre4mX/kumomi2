@@ -1,18 +1,17 @@
-## Getting Started
+# Employee Management System
+Final Project for CS3350 Software Development at Georgia State University
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+An employee management system using MySQL that allows a hypothetical employee to access data about themselves or others in the database, and also allows an administrator to modify the database in a user-friendly way.
 
-## Folder Structure
+## Usage instructions
+One must modify the config.properties within ```/src``` in order to match the settings corresponding to the user's MySQL database. The program assumes the port of the database is 3306.
+```
+# The url where the database is located
+db.url=localhost
+# The username to use when connecting to the database
+db.user=(change)
+# The password to use when connecting to the database
+db.password=(change)
+```
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+After this, the main entry point is through ```EMS.java```
