@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.referencedLibraries": [
+        "w:\\Programming\\kumomi2\\lib\\mysql-connector-j-9.5.0.jar"
+    ],
+    "java.project.outputPath": "bin"
+}
