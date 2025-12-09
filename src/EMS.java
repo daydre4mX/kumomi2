@@ -9,15 +9,16 @@ public class EMS {
 
     public static void main(String[] args) throws Exception {
 
-        // attempt to load configuration file from root of classpath
+        // Attempt to load configuration file from root of classpath
         try (InputStream props = EMS.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties databaseSettings = new Properties();
 
             if (props == null) {
                 System.out.println("Could not find configuration file!");
                 return;
             }
 
+            // Load configuration file into a properties object.
+            Properties databaseSettings = new Properties();
             databaseSettings.load(props);
 
             String databaseUrl = "jdbc:mysql://" + databaseSettings.getProperty("db.url") + ":3306/employeeData";
@@ -26,12 +27,15 @@ public class EMS {
 
             Authorization sessionState = new Authorization();
 
+            // Connect to the database given in config.properties
             try (Connection employeeDatabase = DriverManager.getConnection(databaseUrl, databaseUsername,
                     databasePassword)) {
                 System.out.println("Connected to database successfully.");
                 Scanner sc = new Scanner(System.in);
 
                 while (true) {
+                    // Show two different menus depending on whether or not the user is currently
+                    // authorized to do admin work.
                     if (!sessionState.checkElevated()) {
                         System.out.println("1. Authorize administrator.");
                         System.out.println("2. Search for employee(s)");
