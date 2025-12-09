@@ -106,6 +106,7 @@ create table demographics(
 /***********************************************************************/ 
 
 create table passwords(
-	user varchar(100) default null,
-	password varchar(255) default null
+	user varchar(100) not null,
+	password varchar(255) default null,
+	primary key(user)
 );
