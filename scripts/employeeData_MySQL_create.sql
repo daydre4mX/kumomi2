@@ -115,8 +115,8 @@ CREATE TABLE IF NOT EXISTS user_accounts (
 
 /***********************************************************************/
 
-create table passwords(
-	user varchar(100) not null,
-	password varchar(255) default null,
-	primary key(user)
-);
+-- create table passwords(
+-- 	user varchar(100) not null,
+-- 	password varchar(255) default null,
+-- 	primary key(user)
+-- );
