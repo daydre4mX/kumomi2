@@ -35,7 +35,7 @@ CREATE TABLE payroll (
   retire_401k DECIMAL(7,2),
   health_care DECIMAL(7,2),
   empid INT,
-  PRIMARY KEY (empid),
+  PRIMARY KEY (payID),
   foreign key (empid) references employees(empid)
 );
 
@@ -103,10 +103,20 @@ create table demographics(
 	foreign key (empid) references employees(empid)
 );
 
-/***********************************************************************/ 
+/***********************************************************************/
 
-create table passwords(
-	user varchar(100) not null,
-	password varchar(255) default null,
-	primary key(user)
+CREATE TABLE IF NOT EXISTS user_accounts (
+  username VARCHAR(100) PRIMARY KEY,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('admin','employee') NOT NULL,
+  empid INT NULL,
+  FOREIGN KEY (empid) REFERENCES employees(empid)
 );
+
+/***********************************************************************/
+
+-- create table passwords(
+-- 	user varchar(100) not null,
+-- 	password varchar(255) default null,
+-- 	primary key(user)
+-- );
