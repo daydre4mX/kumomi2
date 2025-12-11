@@ -7,6 +7,7 @@ package test;
 import org.junit.jupiter.api.Test;
 
 import main.java.auth.Authorization;
+import main.java.databaseinteraction.DatabaseInteractor;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,30 +27,7 @@ public class AuthorizationTester {
     Connection employeeDatabase;
 
     public AuthorizationTester() {
-        try (InputStream props = AuthorizationTester.class.getClassLoader().getResourceAsStream("config.properties")) {
-
-            if (props == null) {
-                System.out.println("Could not find configuration file!");
-                return;
-            }
-
-            // Load configuration file into a properties object.
-            Properties databaseSettings = new Properties();
-            databaseSettings.load(props);
-
-            String databaseUrl = "jdbc:mysql://" + databaseSettings.getProperty("db.url") + ":3306/employeeData";
-            String databaseUsername = databaseSettings.getProperty("db.user");
-            String databasePassword = databaseSettings.getProperty("db.password");
-
-            try {
-                employeeDatabase = DriverManager.getConnection(databaseUrl, databaseUsername, databasePassword);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        employeeDatabase = DatabaseInteractor.getDatabaseConnection();
     }
 
     @Test
