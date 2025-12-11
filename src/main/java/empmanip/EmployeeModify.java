@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import main.java.types.Employee;
 
 /**
@@ -16,7 +15,8 @@ import main.java.types.Employee;
  */
 public class EmployeeModify {
 
-    // Deletes an employee and related records in a single transaction, including login mappings.
+    // Deletes an employee and related records in a single transaction, including
+    // login mappings.
     public static boolean removeEmployee(Connection database, Employee employee) {
         try {
             database.setAutoCommit(false);
@@ -47,9 +47,9 @@ public class EmployeeModify {
             removeFromUserAccounts.execute();
             removeFromAddressTable.execute();
             removeFromDemographicsTable.execute();
-            removeFromEmployeeDivisionTable.execute();
             removeFromPayrollTable.execute();
             removeFromJobTitleTable.execute();
+            removeFromEmployeeDivisionTable.execute();
             removeFromEmployeeTable.execute();
 
             removeFromUserAccounts.close();
@@ -75,7 +75,8 @@ public class EmployeeModify {
         }
     }
 
-    // Inserts an employee and dependent records; enforces unique id and SSN before writing.
+    // Inserts an employee and dependent records; enforces unique id and SSN before
+    // writing.
     public static boolean addEmployee(Connection database, Employee employee) {
         try (PreparedStatement checkDuplicate = database.prepareStatement("SELECT 1 FROM employees WHERE empid = ?")) {
             checkDuplicate.setInt(1, employee.getEmployeeID());
