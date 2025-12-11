@@ -67,8 +67,25 @@ public class AuthorizationTester {
         assertEquals(false, sessionTest.authorizeSessionState(employeeDatabase, "bleah", "iamarealperson"));
     }
 
+    @Test
     void authorizeWithNullValues() {
         assertEquals(false, sessionTest.authorizeSessionState(employeeDatabase, "NULL", "NULL"));
     }
 
+    @Test
+    void authorizeAndThenDeauthorize() {
+        sessionTest.authorizeSessionState(employeeDatabase, "admin", "iamarealperson");
+        sessionTest.deElevateState();
+        assertEquals(false, sessionTest.checkElevated());
+    }
+
+    @Test
+    void authorizeWithEmptyStrings() {
+        assertEquals(false, sessionTest.authorizeSessionState(employeeDatabase, "", ""));
+    }
+
+    @Test
+    void authorizeWithUsernameAndEmptyPassword() {
+        assertEquals(true, sessionTest.authorizeSessionState(employeeDatabase, "adminWithNoPassword", ""));
+    }
 }
