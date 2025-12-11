@@ -35,7 +35,7 @@ CREATE TABLE payroll (
   retire_401k DECIMAL(7,2),
   health_care DECIMAL(7,2),
   empid INT,
-  PRIMARY KEY (empid),
+  PRIMARY KEY (payID),
   foreign key (empid) references employees(empid)
 );
 
