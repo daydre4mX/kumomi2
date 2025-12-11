@@ -184,7 +184,7 @@ public class EMS {
             return;
         }
 
-        System.out.println("Search by: 1) Employee ID 2) SSN 3) DOB (yyyy-MM-dd)");
+        System.out.println("Search by: 1) Employee ID 2) SSN 3) DOB (yyyy-MM-dd) 4) Name");
         String choice = sc.nextLine().trim();
         List<Employee> employees = List.of();
         switch (choice) {
@@ -210,6 +210,23 @@ public class EMS {
                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format.");
                     return;
+                }
+                break;
+            case "4":
+                System.out.println("Enter first name");
+                String fName = sc.nextLine();
+
+                System.out.println("Enter last name");
+                String lName = sc.nextLine();
+
+                if (!fName.isEmpty() && lName.isEmpty()) {
+                    employees = UserSearch.searchForEmployeeFirstName(db, fName);
+                } else if (fName.isEmpty() && !lName.isEmpty()) {
+                    employees = UserSearch.searchForEmployeeLastName(db, lName);
+                } else if (!fName.isEmpty() && !lName.isEmpty()) {
+                    employees = UserSearch.searchForEmployeeFirstLastName(db, fName, lName);
+                } else {
+                    System.out.println("No input supplied!");
                 }
                 break;
             default:
