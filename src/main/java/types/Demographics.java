@@ -1,3 +1,5 @@
+package main.java.types;
+
 import java.util.Date;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
