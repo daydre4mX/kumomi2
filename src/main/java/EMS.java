@@ -447,10 +447,33 @@ public class EMS {
             System.out.println("Enter percentage increase (e.g., 5 for 5%):");
             double pct = Double.parseDouble(sc.nextLine());
 
+            // Preview which employees will be updated and their new salaries.
+            try (PreparedStatement preview = db.prepareStatement(
+                    "SELECT empid, Fname, Lname, Salary FROM employees WHERE Salary >= ? AND Salary < ?")) {
+                preview.setDouble(1, min);
+                preview.setDouble(2, max);
+                try (ResultSet rs = preview.executeQuery()) {
+                    boolean any = false;
+                    System.out.println("Employees to update:");
+                    while (rs.next()) {
+                        any = true;
+                        double oldSalary = rs.getDouble("Salary");
+                        double newSalary = oldSalary * (1 + (pct / 100));
+                        System.out.println(rs.getInt("empid") + " - " + rs.getString("Fname") + " "
+                                + rs.getString("Lname") + " : " + oldSalary + " -> " + newSalary);
+                    }
+                    if (!any) {
+                        System.out.println("No employees within that range.");
+                    }
+                }
+            }
+
             int updated = EmployeeModify.updateSalaryRange(db, min, max, pct);
             System.out.println("Updated " + updated + " employees.");
         } catch (NumberFormatException e) {
             System.out.println("Invalid numeric input.");
+        } catch (SQLException e) {
+            System.out.println("Error previewing updates: " + e.getMessage());
         }
     }
 
@@ -534,6 +557,7 @@ public class EMS {
             System.out.println("Enter year (e.g., 2024):");
             int year = Integer.parseInt(sc.nextLine());
 
+            // Aligns with schema (division.ID/Name); avoids missing d.div_ID errors.
             String sql = "SELECT d.Name AS division_name, SUM(p.earnings) AS total_pay "
                     + "FROM payroll p "
                     + "JOIN employees e ON p.empid = e.empid "
