@@ -68,7 +68,7 @@ public class Search_Tester {
                 List<Employee> result = UserSearch.searchForEmployeeDOB(database, birthday);
 
                 assertNotNull(result);
-                assertEquals(result.isEmpty(), "If correct, return a single employee.");
+                assertEquals(false, result.isEmpty(), "If correct, return a single employee.");
 
                 assertEquals(birthday, result.get(0).getDemographics().getBirthDate());
 
