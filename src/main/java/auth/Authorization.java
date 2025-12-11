@@ -6,15 +6,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Holds the session state for the management system
+ * Holds the session state for the management system.
+ * Tracks authenticated role and associated employee id for downstream checks.
+ * 
+ * @author Zerubbabel Ashenafi
+ * @author Jonathan Bell
  */
 
 public class Authorization {
 
+    public enum Role {
+        NONE,
+        ADMIN,
+        EMPLOYEE
+    }
+
     /**
      * Signifies whether the session can perform edits or not.
      */
-    boolean elevated = false;
+    // Tracks current session role (admin/employee/unauthenticated).
+    private Role role = Role.NONE;
+
+    /**
+     * The employee id tied to the logged in user. This is only populated for
+     * general employees.
+     */
+    // Cached employee id for a logged-in general employee; null for admins or anonymous.
+    private Integer employeeId = null;
 
     /**
      * Method that authorizes the session to allow an admin to edit the database.
@@ -28,14 +46,18 @@ public class Authorization {
      */
     public boolean authorizeSessionState(Connection database, String username, String password) {
 
-        if (elevated) {
-            System.out.println("Already authorized!");
+        if (role != Role.NONE) {
+            System.out.println("Already signed in as " + role + "!");
             return true;
         }
 
-        // Use a prepared statement to allow a variable to be easily inserted into the
-        // command without concatenation.
-        try (PreparedStatement getUsers = database.prepareStatement("SELECT * FROM passwords where user=?")) {
+        String sql = """
+                SELECT username, password, role, empid
+                FROM user_accounts
+                WHERE username = ?
+                """;
+
+        try (PreparedStatement getUsers = database.prepareStatement(sql)) {
             getUsers.setString(1, username);
             ResultSet user = getUsers.executeQuery();
 
@@ -46,16 +68,25 @@ public class Authorization {
 
             while (user.next()) {
                 String queryPassword = user.getString("password");
-
-                if (password.equals(queryPassword)) {
-                    System.out.println("Authorized!");
-                    elevated = true;
-                    return true;
-                } else {
+                if (!password.equals(queryPassword)) {
                     System.out.println("Password is wrong!");
                     return false;
                 }
 
+                String userRole = user.getString("role");
+                if (userRole != null && userRole.equalsIgnoreCase("admin")) {
+                    role = Role.ADMIN;
+                } else {
+                    role = Role.EMPLOYEE;
+                }
+
+                int empId = user.getInt("empid");
+                if (!user.wasNull()) {
+                    employeeId = empId;
+                }
+
+                System.out.println("Authorized as " + role + "!");
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,7 +100,8 @@ public class Authorization {
      * complete.
      */
     public void deElevateState() {
-        elevated = false;
+        role = Role.NONE;
+        employeeId = null;
     }
 
     /**
@@ -78,7 +110,22 @@ public class Authorization {
      *         the number of times we might need to reauthorize the state.
      */
     public boolean checkElevated() {
-        return elevated;
+        return role == Role.ADMIN;
+    }
+
+    /**
+     * @return The current user role.
+     */
+    public Role getRole() {
+        return role;
+    }
+
+    /**
+     * @return The employee id tied to the logged in user, null for admins or when
+     *         unauthenticated.
+     */
+    public Integer getEmployeeId() {
+        return employeeId;
     }
 
 }
