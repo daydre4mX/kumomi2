@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 import java.util.Scanner;
-
 import main.java.auth.Authorization;
 
 public class EMS {
@@ -46,13 +45,13 @@ public class EMS {
                         System.out.println("3. Show pay statements.");
                         System.out.println("Enter an option from 1-3, or type exit: ");
 
-                        String input = sc.next();
+                        String input = sc.nextLine();
 
                         if (input.equals("1")) {
                             System.out.println("Enter a username:");
-                            String user = sc.next();
+                            String user = sc.nextLine();
                             System.out.println("Enter a password:");
-                            String password = sc.next();
+                            String password = sc.nextLine();
 
                             sessionState.authorizeSessionState(employeeDatabase, user, password);
 
@@ -72,7 +71,7 @@ public class EMS {
                         System.out.println("5. Reports menu");
                         System.out.println("Enter an option from 1-5, or type exit: ");
 
-                        String input = sc.next();
+                        String input = sc.nextLine();
 
                         if (input.equals("1")) {
                             System.out.println("Logging out of admin!");
