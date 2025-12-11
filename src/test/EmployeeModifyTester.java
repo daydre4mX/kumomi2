@@ -32,16 +32,17 @@ public class EmployeeModifyTester {
                 "Reimu", "Hakurei", 120000,
                 new JobTitle());
 
-        EmployeeModify.addEmployee(database, emp);
-
         try (PreparedStatement stmt = database.prepareStatement("SELECT * FROM employees WHERE empid = ?")) {
             stmt.setInt(1, emp.getEmployeeID());
 
             ResultSet rs = stmt.executeQuery();
-            if (!rs.isBeforeFirst()) {
-                fail();
+            if (rs.isBeforeFirst()) {
+                EmployeeModify.removeEmployee(database, emp);
             }
 
+            EmployeeModify.addEmployee(database, emp);
+
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 assertEquals(rs.getInt("empid"), emp.getEmployeeID());
             }
