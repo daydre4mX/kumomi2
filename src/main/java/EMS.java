@@ -261,13 +261,20 @@ public class EMS {
 
             System.out.println("Enter job title id:");
             int jobId = Integer.parseInt(sc.nextLine());
-            System.out.println("Enter job title name:");
-            String jobTitleName = sc.nextLine();
+
+            // Zeru: unneeded because the code should be using the ID to pull all the
+            // relevant information needed from the database.
+
+            // System.out.println("Enter job title name:");
+            // String jobTitleName = sc.nextLine();
 
             System.out.println("Enter division id:");
             int divisionId = Integer.parseInt(sc.nextLine());
-            System.out.println("Enter division name:");
-            String divisionName = sc.nextLine();
+
+            // Zeru: See above.
+
+            // System.out.println("Enter division name:");
+            // String divisionName = sc.nextLine();
 
             System.out.println("Enter gender (single character):");
             char gender = sc.nextLine().charAt(0);
@@ -291,8 +298,12 @@ public class EMS {
             Demographics demographics = new Demographics(gender, race, dob, phone);
             Division division = new Division();
             division.setId(divisionId);
-            division.setName(divisionName);
-            JobTitle jobTitle = new JobTitle(jobTitleName, jobId);
+            division.setDivisionFromID(db);
+
+            JobTitle jobTitle = new JobTitle();
+            jobTitle.setJobTitleID(jobId);
+            jobTitle.setJobTitleFromID(db);
+
             Employee emp = new Employee(ssn, address, hireDate, demographics, division, email, empId, fName, lName,
                     salary, jobTitle);
 
