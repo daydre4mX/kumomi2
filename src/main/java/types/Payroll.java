@@ -18,7 +18,7 @@ public class Payroll {
 
     public Payroll() {
         this.paymentID = 0;
-        this.dateOfPayment = LocalDate.of(0, 0, 0);
+        this.dateOfPayment = LocalDate.of(1, 1, 1);
         this.earnings = 0;
         this.federalTax = 0;
         this.federalSocialSec = 0;

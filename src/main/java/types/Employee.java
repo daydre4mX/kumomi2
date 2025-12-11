@@ -1,7 +1,6 @@
 package main.java.types;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  *
@@ -26,7 +25,7 @@ public class Employee implements IBaseEmployee {
         this.lName = "";
         this.email = "";
         this.SSN = "";
-        this.date = LocalDate.of(0, 0, 0);
+        this.date = LocalDate.of(1, 1, 1);
         ;
         this.salary = 0;
         this.division = new Division();

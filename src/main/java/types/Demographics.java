@@ -15,7 +15,7 @@ public class Demographics {
     public Demographics() {
         this.gender = 'z';
         this.race = "";
-        this.birthDate = LocalDate.of(0, 0, 0);
+        this.birthDate = LocalDate.of(1, 1, 1);
         this.phoneNumber = 0;
     }
 
