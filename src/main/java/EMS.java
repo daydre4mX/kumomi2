@@ -1,9 +1,13 @@
+package main.java;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 import java.util.Scanner;
+
+import main.java.auth.Authorization;
 
 public class EMS {
 
