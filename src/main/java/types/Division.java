@@ -5,7 +5,7 @@ package main.java.types;
  * @author Myles Miller
  */
 public class Division {
-    
+
     private int id;
     private String name;
     private String city;
@@ -15,13 +15,19 @@ public class Division {
     private String country;
     private String postalCode;
 
-    
     public Division() {
+        this.id = 0;
+        this.name = "";
+        this.city = "";
+        this.addressLine1 = "";
+        this.addressLine2 = "";
+        this.state = "";
+        this.country = "";
+        this.postalCode = "";
     }
 
-  
-    public Division(int id, String name, String city, String addressLine1, 
-                   String addressLine2, String state, String country, String postalCode) {
+    public Division(int id, String name, String city, String addressLine1,
+            String addressLine2, String state, String country, String postalCode) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -33,7 +39,7 @@ public class Division {
     }
 
     // Getters and Setters
-    
+
     public int getId() {
         return id;
     }
