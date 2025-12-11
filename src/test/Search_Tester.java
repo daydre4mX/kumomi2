@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
@@ -35,11 +36,10 @@ public class Search_Tester {
 
         try {
             List<Employee> results = handleSearch.search(
-                database,
-                sessionTest,
-                sc,
-                false
-            );
+                    database,
+                    sessionTest,
+                    sc,
+                    false);
 
             assertNotNull(results,
                     "Search should return a restricted result when no exception is thrown.");
@@ -53,10 +53,9 @@ public class Search_Tester {
         } catch (SecurityException ex) {
 
             assertEquals(
-                "Employees may only view their own record.",
-                ex.getMessage(),
-                "General employees must not be allowed to view other employees."
-            );
+                    "Employees may only view their own record.",
+                    ex.getMessage(),
+                    "General employees must not be allowed to view other employees.");
         }
     }
 }
