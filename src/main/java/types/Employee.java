@@ -1,6 +1,12 @@
 package main.java.types;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -161,4 +167,33 @@ public class Employee implements IBaseEmployee {
         this.employeeID = id;
     }
 
+    public List<Payroll> getAllPayStatements(Connection database) {
+        try (PreparedStatement getPayroll = database.prepareStatement("SELECT * FROM payroll WHERE empid = ?")) {
+            getPayroll.setInt(1, this.employeeID);
+
+            ResultSet payStatements = getPayroll.executeQuery();
+
+            ArrayList<Payroll> payStatementList = new ArrayList<>();
+
+            while (payStatements.next()) {
+                Payroll temp = new Payroll();
+                temp.setPaymentID(payStatements.getInt("payID"));
+                temp.setDateOfPayment(payStatements.getDate("pay_date").toLocalDate());
+                temp.setEarnings(payStatements.getDouble("earnings"));
+                temp.setFederalTax(payStatements.getDouble("fed_tax"));
+                temp.setFederalMedi(payStatements.getDouble("fed_med"));
+                temp.setFederalSocialSec(payStatements.getDouble("fed_ss"));
+                temp.setRetirement401k(payStatements.getDouble("retire_401k"));
+                temp.setHealthcareWithheld(payStatements.getDouble("health_care"));
+                temp.setStateTax(payStatements.getDouble("state_tax"));
+
+                payStatementList.add(temp);
+            }
+
+            return payStatementList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

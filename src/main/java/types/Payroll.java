@@ -12,6 +12,7 @@ public class Payroll {
     double earnings;
     double federalTax;
     double federalSocialSec;
+    double federalMedi;
     double stateTax;
     double retirement401k;
     double healthcareWithheld;
@@ -28,7 +29,7 @@ public class Payroll {
     }
 
     public Payroll(LocalDate dateOfPayment, double earnings, double federalSocialSec, double federalTax,
-            double healthcareWithheld, int paymentID, double retirement401k, double stateTax) {
+            double healthcareWithheld, int paymentID, double retirement401k, double stateTax, double federalMedi) {
         this.dateOfPayment = dateOfPayment;
         this.earnings = earnings;
         this.federalSocialSec = federalSocialSec;
@@ -37,6 +38,7 @@ public class Payroll {
         this.paymentID = paymentID;
         this.retirement401k = retirement401k;
         this.stateTax = stateTax;
+        this.federalMedi = federalMedi;
     }
 
     public int getPaymentID() {
@@ -101,6 +103,14 @@ public class Payroll {
 
     public void setHealthcareWithheld(double healthcareWithheld) {
         this.healthcareWithheld = healthcareWithheld;
+    }
+
+    public double getFederalMedi() {
+        return federalMedi;
+    }
+
+    public void setFederalMedi(double federalMedi) {
+        this.federalMedi = federalMedi;
     }
 
 }
