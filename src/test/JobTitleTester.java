@@ -18,12 +18,12 @@ public class JobTitleTester {
     JobTitle jobTitle;
 
     public JobTitleTester() {
+        jobTitle = new JobTitle();
         database = DatabaseInteractor.getDatabaseConnection();
     }
 
     @Test
     void testGetJobTitleFromID() {
-        jobTitle = new JobTitle();
         jobTitle.setJobTitleID(101);
         jobTitle.setJobTitleFromID(database);
 

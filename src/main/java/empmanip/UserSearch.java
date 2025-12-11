@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import main.java.types.Address;
 import main.java.types.Demographics;
 import main.java.types.Division;
@@ -19,7 +18,7 @@ import main.java.types.JobTitle;
  * Builds employee objects with joined address/division/job/demographics data.
  * 
  * @author Jonathan Bell
- * @author Zerubbabel Ashenafi
+ * @author Ahmed Cisse
  */
 public class UserSearch {
 

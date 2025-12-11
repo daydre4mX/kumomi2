@@ -1,5 +1,10 @@
 package main.java.types;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Myles Miller
@@ -102,6 +107,40 @@ public class Division {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public void setDivisionFromID(Connection database) {
+        try (PreparedStatement getDivision = database
+                .prepareStatement("SELECT * FROM division WHERE ID = ?")) {
+
+            getDivision.setInt(1, this.id);
+
+            ResultSet division = getDivision.executeQuery();
+
+            // If no job title matches the id given.
+            if (!division.isBeforeFirst()) {
+                this.name = "";
+                return;
+            }
+
+            while (division.next()) {
+                this.name = division.getString("Name");
+                if (this.name == null)
+                    this.name = "";
+                this.city = division.getString("city");
+                this.addressLine1 = division.getString("addressLine1");
+                this.addressLine2 = division.getString("addressLine2");
+                if (this.addressLine2 == null)
+                    this.addressLine2 = "";
+                this.state = division.getString("state");
+                if (this.state == null)
+                    this.state = "";
+                this.country = division.getString("country");
+                this.postalCode = division.getString("postalCode");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error creating prepared statement: " + e.getLocalizedMessage());
+        }
     }
 
     @Override
