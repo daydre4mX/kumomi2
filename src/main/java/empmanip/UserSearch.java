@@ -19,6 +19,7 @@ import main.java.types.JobTitle;
  * 
  * @author Jonathan Bell
  * @author Ahmed Cisse
+ * @author Zerubbabel Ashenafi
  */
 public class UserSearch {
 
@@ -39,6 +40,27 @@ public class UserSearch {
     public static List<Employee> searchForEmployeeID(Connection myConn, int ID) {
         String sql = BASE_QUERY + " WHERE e.empid = ?";
         return executeQuery(myConn, sql, stmt -> stmt.setInt(1, ID));
+    }
+
+    // Search by employee first name.
+    public static List<Employee> searchForEmployeeFirstName(Connection myConn, String fName) {
+        String sql = BASE_QUERY + " WHERE e.Fname = ?";
+        return executeQuery(myConn, sql, stmt -> stmt.setString(1, fName));
+    }
+
+    // Search by employee last name.
+    public static List<Employee> searchForEmployeeLastName(Connection myConn, String lName) {
+        String sql = BASE_QUERY + " WHERE e.Lname = ?";
+        return executeQuery(myConn, sql, stmt -> stmt.setString(1, lName));
+    }
+
+    // Search by employee first and last name.
+    public static List<Employee> searchForEmployeeFirstLastName(Connection myConn, String fName, String lName) {
+        String sql = BASE_QUERY + " WHERE e.Fname = ? AND e.Lname = ?";
+        return executeQuery(myConn, sql, stmt -> {
+            stmt.setString(1, fName);
+            stmt.setString(2, lName);
+        });
     }
 
     // Search by SSN.
