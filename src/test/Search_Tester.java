@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.ArrayList;
+import java.util.List;
+
 import main.java.databaseinteraction.DatabaseInteractor;
 import main.java.empmanip.UserSearch;
 import main.java.types.Employee;
@@ -25,13 +26,14 @@ public class Search_Tester {
         /* Test for Search by Employee ID, Returns information if in DB */
         @Test
         void testSearchforID() {
-                ArrayList<Employee> result = UserSearch.searchForEmployeeID(database, 1001);
+                int ID = 1001;
+                List<Employee> result = UserSearch.searchForEmployeeID(database, ID);
 
                 assertNotNull(result);
                 assertEquals(1, result.size(), "If correrect, return a single employee.");
 
                 Employee emp = result.get(0);
-                assertEquals(101, emp.getEmployeeID());
+                assertEquals(ID, emp.getEmployeeID());
                 assertNotNull(emp.getfName(), "First name must be populated");
                 assertNotNull(emp.getlName(), "Last name must be populated");
                 assertNotNull(emp.getJobTitle(), "Job Title name must be populated");
@@ -46,7 +48,7 @@ public class Search_Tester {
          */
         @Test
         void testSearchforSSN() {
-                ArrayList<Employee> result = UserSearch.searchForEmployeeSSN(database, "111-22-3333");
+                List<Employee> result = UserSearch.searchForEmployeeSSN(database, "111-22-3333");
 
                 assertNotNull(result);
                 assertEquals(1, result.size(), "If correrect, return a single employee.");
@@ -63,7 +65,7 @@ public class Search_Tester {
         void testSearchforDOB() {
                 LocalDate birthday = LocalDate.of(1990, 05, 05);
 
-                ArrayList<Employee> result = UserSearch.searchForEmployeeDOB(database, birthday);
+                List<Employee> result = UserSearch.searchForEmployeeDOB(database, birthday);
 
                 assertNotNull(result);
                 assertEquals(result.isEmpty(), "If correct, return a single employee.");
