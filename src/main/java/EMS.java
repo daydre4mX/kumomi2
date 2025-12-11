@@ -13,6 +13,12 @@ public class EMS {
 
         // Connect to the database given in config.properties
         try (Connection employeeDatabase = DatabaseInteractor.getDatabaseConnection()) {
+
+            if (employeeDatabase == null) {
+                System.out.println("Error in connecting to database, is your configuration setup properly?");
+                System.exit(1);
+            }
+
             System.out.println("Connected to database successfully.");
             Scanner sc = new Scanner(System.in);
 
@@ -40,7 +46,8 @@ public class EMS {
                     } else if (input.equals("3")) {
                         // implement pay statements for an employee id
                     } else if (input.equals("exit")) {
-                        System.out.println("Exiting Employee management system!");
+                        System.out.println("Exiting Employee Management System!");
+                        employeeDatabase.close();
                         System.exit(0);
                     }
                 } else {
@@ -66,6 +73,7 @@ public class EMS {
                         // implement reports menu
                     } else if (input.equals("exit")) {
                         System.out.println("Exiting Employee management system!");
+                        employeeDatabase.close();
                         System.exit(0);
                     }
                 }
