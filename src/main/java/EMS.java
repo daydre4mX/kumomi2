@@ -534,15 +534,13 @@ public class EMS {
             System.out.println("Enter year (e.g., 2024):");
             int year = Integer.parseInt(sc.nextLine());
 
-            String sql = """
-                    SELECT d.name AS division_name, SUM(p.earnings) AS total_pay
-                    FROM payroll p
-                    JOIN employees e ON p.empid = e.empid
-                    JOIN employee_division ed ON e.empid = ed.empid
-                    JOIN division d ON ed.div_ID = d.div_ID
-                    WHERE MONTH(p.pay_date) = ? AND YEAR(p.pay_date) = ?
-                    GROUP BY d.name
-                    """;
+            String sql = "SELECT d.Name AS division_name, SUM(p.earnings) AS total_pay "
+                    + "FROM payroll p "
+                    + "JOIN employees e ON p.empid = e.empid "
+                    + "JOIN employee_division ed ON e.empid = ed.empid "
+                    + "JOIN division d ON ed.div_ID = d.ID "
+                    + "WHERE MONTH(p.pay_date) = ? AND YEAR(p.pay_date) = ? "
+                    + "GROUP BY d.Name";
 
             try (PreparedStatement stmt = db.prepareStatement(sql)) {
                 stmt.setInt(1, month);
