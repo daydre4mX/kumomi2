@@ -3,6 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-class Address {
+public class Address {
 
 }
