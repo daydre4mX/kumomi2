@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.Scanner;
 import main.java.auth.Authorization;
 import main.java.databaseinteraction.DatabaseInteractor;
+import main.java.empmanip.userSearch;
 
 public class EMS {
 
