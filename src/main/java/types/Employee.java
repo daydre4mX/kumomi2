@@ -1,5 +1,6 @@
 package main.java.types;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ public class Employee implements IBaseEmployee {
     private String lName;
     private String email;
     private String SSN;
-    private Date date;
+    private LocalDate date;
     private double salary;
     private Division division;
     private Demographics demographics;
@@ -25,7 +26,8 @@ public class Employee implements IBaseEmployee {
         this.lName = "";
         this.email = "";
         this.SSN = "";
-        this.date = new Date(0);
+        this.date = LocalDate.of(0, 0, 0);
+        ;
         this.salary = 0;
         this.division = new Division();
         this.demographics = new Demographics();
@@ -34,7 +36,8 @@ public class Employee implements IBaseEmployee {
         this.employeeID = 0;
     }
 
-    public Employee(String SSN, Address address, Date date, Demographics demographics, Division division, String email,
+    public Employee(String SSN, Address address, LocalDate date, Demographics demographics, Division division,
+            String email,
             int employeeID, String fName, String lName, double salary, JobTitle title) {
         this.SSN = SSN;
         this.address = address;
@@ -90,12 +93,12 @@ public class Employee implements IBaseEmployee {
     }
 
     @Override
-    public Date getHireDate() {
+    public LocalDate getHireDate() {
         return date;
     }
 
     @Override
-    public void setHireDate(Date date) {
+    public void setHireDate(LocalDate date) {
         this.date = date;
     }
 

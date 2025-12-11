@@ -1,6 +1,6 @@
 package main.java.types;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * @author Ahmed Cisse
@@ -9,17 +9,17 @@ import java.util.Date;
 public class Demographics {
     private char gender;
     private String race;
-    private Date birthDate;
+    private LocalDate birthDate;
     private int phoneNumber;
 
     public Demographics() {
         this.gender = 'z';
         this.race = "";
-        this.birthDate = new Date(0);
+        this.birthDate = LocalDate.of(0, 0, 0);
         this.phoneNumber = 0;
     }
 
-    public Demographics(char gender, String race, Date birthDate, int phoneNumber) {
+    public Demographics(char gender, String race, LocalDate birthDate, int phoneNumber) {
         this.gender = gender;
         this.race = race;
         this.birthDate = birthDate;
@@ -42,11 +42,11 @@ public class Demographics {
         this.race = race;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
