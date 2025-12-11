@@ -103,7 +103,17 @@ create table demographics(
 	foreign key (empid) references employees(empid)
 );
 
-/***********************************************************************/ 
+/***********************************************************************/
+
+CREATE TABLE IF NOT EXISTS user_accounts (
+  username VARCHAR(100) PRIMARY KEY,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('admin','employee') NOT NULL,
+  empid INT NULL,
+  FOREIGN KEY (empid) REFERENCES employees(empid)
+);
+
+/***********************************************************************/
 
 create table passwords(
 	user varchar(100) not null,
