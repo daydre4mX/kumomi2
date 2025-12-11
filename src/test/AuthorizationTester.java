@@ -6,7 +6,6 @@ package test;
 
 import org.junit.jupiter.api.Test;
 
-import main.java.EMS;
 import main.java.auth.Authorization;
 
 import static org.junit.jupiter.api.Assertions.*;
