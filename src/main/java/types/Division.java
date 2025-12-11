@@ -1,13 +1,5 @@
 package main.java.types;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- * Represents a division within the organization.
- * Corresponds to the division table in the database.
- */
 /**
  *
  * @author Myles Miller
