@@ -2,6 +2,7 @@ package main.java.empmanip;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import main.java.types.Employee;
@@ -41,12 +42,12 @@ public class EmployeeModify {
             removeFromPayrollTable.setInt(1, employee.getEmployeeID());
             removeFromJobTitleTable.setInt(1, employee.getEmployeeID());
 
-            removeFromEmployeeTable.executeQuery();
-            removeFromAddressTable.executeQuery();
-            removeFromDemographicsTable.executeQuery();
-            removeFromEmployeeDivisionTable.executeQuery();
-            removeFromPayrollTable.executeQuery();
-            removeFromJobTitleTable.executeQuery();
+            removeFromEmployeeTable.execute();
+            removeFromAddressTable.execute();
+            removeFromDemographicsTable.execute();
+            removeFromEmployeeDivisionTable.execute();
+            removeFromPayrollTable.execute();
+            removeFromJobTitleTable.execute();
 
             removeFromEmployeeTable.close();
             removeFromAddressTable.close();
@@ -67,8 +68,31 @@ public class EmployeeModify {
      * @param employee The employee to add.
      */
     public static void addEmployee(Connection database, Employee employee) {
-        try (PreparedStatement addEmployee = database.prepareStatement(
-                "INSERT INTO employees (empid, Fname, Lname, email, HireDate, Salary, SSN) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+        // Check if employee already in database.
+
+        try (PreparedStatement checkDuplicate = database.prepareStatement("SELECT 1 FROM employees WHERE empid = ?")) {
+            checkDuplicate.setInt(1, employee.getEmployeeID());
+
+            ResultSet doesEmployeeExist = checkDuplicate.executeQuery();
+
+            // If any employee shows up in the result set, return early.
+            if (doesEmployeeExist.isBeforeFirst()) {
+                System.out.println("Employee ID already in database!");
+                return;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement addEmployee = database.prepareStatement(
+                    "INSERT INTO employees (empid, Fname, Lname, email, HireDate, Salary, SSN) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement addDivision;
+            PreparedStatement addAddress;
+            PreparedStatement addJobTitle;
+            PreparedStatement addDemographics;
+
             addEmployee.setInt(1, employee.getEmployeeID());
             addEmployee.setString(2, employee.getfName());
             addEmployee.setString(3, employee.getlName());
@@ -77,7 +101,10 @@ public class EmployeeModify {
             addEmployee.setDouble(6, employee.getSalary());
             addEmployee.setString(7, employee.getSSN());
 
-            addEmployee.executeQuery();
+            addEmployee.execute();
+
+            addEmployee.close();
+            System.out.println("Employee added to database!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
