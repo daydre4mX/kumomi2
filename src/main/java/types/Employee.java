@@ -2,14 +2,9 @@ package main.java.types;
 
 import java.util.Date;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 /**
  *
- * @author aweso
+ * @author Zerubbabel Ashenafi
  */
 public class Employee implements IBaseEmployee {
 
@@ -24,6 +19,35 @@ public class Employee implements IBaseEmployee {
     private Address address;
     private JobTitle title;
     private int employeeID;
+
+    public Employee() {
+        this.fName = "";
+        this.lName = "";
+        this.email = "";
+        this.SSN = "";
+        this.date = new Date(0);
+        this.salary = 0;
+        this.division = new Division();
+        this.demographics = new Demographics();
+        this.address = new Address();
+        this.title = new JobTitle();
+        this.employeeID = 0;
+    }
+
+    public Employee(String SSN, Address address, Date date, Demographics demographics, Division division, String email,
+            int employeeID, String fName, String lName, double salary, JobTitle title) {
+        this.SSN = SSN;
+        this.address = address;
+        this.date = date;
+        this.demographics = demographics;
+        this.division = division;
+        this.email = email;
+        this.employeeID = employeeID;
+        this.fName = fName;
+        this.lName = lName;
+        this.salary = salary;
+        this.title = title;
+    }
 
     @Override
     public String getfName() {

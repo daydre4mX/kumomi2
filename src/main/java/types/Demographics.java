@@ -1,16 +1,30 @@
 package main.java.types;
 
 import java.util.Date;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
+/**
+ * @author Ahmed Cisse
+ * @author Zerubbabel Ashenafi
+ */
 public class Demographics {
-    private char gender; 
+    private char gender;
     private String race;
     private Date birthDate;
-    private int  phoneNumber;
+    private int phoneNumber;
+
+    public Demographics() {
+        this.gender = 'z';
+        this.race = "";
+        this.birthDate = new Date(0);
+        this.phoneNumber = 0;
+    }
+
+    public Demographics(char gender, String race, Date birthDate, int phoneNumber) {
+        this.gender = gender;
+        this.race = race;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+    }
 
     public char getGender() {
         return gender;
@@ -23,7 +37,7 @@ public class Demographics {
     public String getRace() {
         return race;
     }
-    
+
     public void setRace(String race) {
         this.race = race;
     }
@@ -39,11 +53,9 @@ public class Demographics {
     public int getPhoneNumber() {
         return phoneNumber;
     }
-    
+
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-
 
 }
