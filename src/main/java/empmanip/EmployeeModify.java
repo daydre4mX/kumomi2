@@ -42,12 +42,12 @@ public class EmployeeModify {
             removeFromPayrollTable.setInt(1, employee.getEmployeeID());
             removeFromJobTitleTable.setInt(1, employee.getEmployeeID());
 
-            removeFromEmployeeTable.execute();
             removeFromAddressTable.execute();
             removeFromDemographicsTable.execute();
             removeFromEmployeeDivisionTable.execute();
             removeFromPayrollTable.execute();
             removeFromJobTitleTable.execute();
+            removeFromEmployeeTable.execute();
 
             removeFromEmployeeTable.close();
             removeFromAddressTable.close();
@@ -118,7 +118,7 @@ public class EmployeeModify {
             addJobTitle.setInt(2, employee.getJobTitle().getJobTitleID());
 
             addDemographics.setInt(1, employee.getEmployeeID());
-            addDemographics.setInt(2, employee.getDemographics().getGender());
+            addDemographics.setString(2, Character.toString(employee.getDemographics().getGender()));
             addDemographics.setString(3, employee.getDemographics().getRace());
             addDemographics.setObject(4, employee.getDemographics().getBirthDate());
             addDemographics.setString(5, employee.getDemographics().getPhoneNumber());
