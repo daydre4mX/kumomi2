@@ -1,6 +1,6 @@
 package main.java.types;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class Payroll {
     int paymentID;
-    Date dateOfPayment;
+    LocalDate dateOfPayment;
     double earnings;
     double federalTax;
     double federalSocialSec;
@@ -18,7 +18,7 @@ public class Payroll {
 
     public Payroll() {
         this.paymentID = 0;
-        this.dateOfPayment = new Date(0);
+        this.dateOfPayment = LocalDate.of(1, 1, 1);
         this.earnings = 0;
         this.federalTax = 0;
         this.federalSocialSec = 0;
@@ -27,7 +27,7 @@ public class Payroll {
         this.healthcareWithheld = 0;
     }
 
-    public Payroll(Date dateOfPayment, double earnings, double federalSocialSec, double federalTax,
+    public Payroll(LocalDate dateOfPayment, double earnings, double federalSocialSec, double federalTax,
             double healthcareWithheld, int paymentID, double retirement401k, double stateTax) {
         this.dateOfPayment = dateOfPayment;
         this.earnings = earnings;
@@ -47,11 +47,11 @@ public class Payroll {
         this.paymentID = paymentID;
     }
 
-    public Date getDateOfPayment() {
+    public LocalDate getDateOfPayment() {
         return dateOfPayment;
     }
 
-    public void setDateOfPayment(Date dateOfPayment) {
+    public void setDateOfPayment(LocalDate dateOfPayment) {
         this.dateOfPayment = dateOfPayment;
     }
 

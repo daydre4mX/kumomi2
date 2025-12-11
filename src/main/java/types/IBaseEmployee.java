@@ -1,6 +1,6 @@
 package main.java.types;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -23,9 +23,9 @@ public interface IBaseEmployee {
 
     public void setSSN(String SSN);
 
-    public Date getHireDate();
+    public LocalDate getHireDate();
 
-    public void setHireDate(Date date);
+    public void setHireDate(LocalDate date);
 
     public double getSalary();
 
