@@ -101,7 +101,7 @@ public class Employee implements IBaseEmployee {
 
     @Override
     public void setDemographics(Demographics demo) {
-        this.demographics = demographics;
+        this.demographics = demo;
     }
 
     @Override
